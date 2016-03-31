@@ -36,8 +36,13 @@ if (!isloggedin()) {
     header('Location: ' . $moodle_url);
 }
 
-// omero server
-$omero_server = new omero();
+// instantiate the omero client
+$omero_server = new omero(
+    get_config('omero', 'omero_key'),
+    get_config('omero', 'omero_secret'),
+    new moodle_url("$CFG->wwwroot/moodle/question/question.php"), // TODO: to remove because
+    "read"
+);
 
 // get method
 $method = required_param("m", PARAM_TEXT);
